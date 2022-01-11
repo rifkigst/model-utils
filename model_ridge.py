@@ -1,19 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
-get_ipython().system('pip install numpy')
-get_ipython().system('pip install pandas')
-get_ipython().system('pip install matplotlib')
-get_ipython().system('pip install scipy')
-get_ipython().system('pip install sklearn')
-
-
-# In[4]:
-
-
 import numpy as np
 import pandas as pd
 import random
@@ -24,9 +8,6 @@ from sklearn.model_selection import KFold
 import sklearn.linear_model as linear_model
 import sklearn.metrics as metrics
 from sklearn.cluster import KMeans
-
-
-# In[12]:
 
 
 def feature_scalling(X_train, X_test, method=StandardScaler(with_mean=True, with_std=False)):
@@ -40,10 +21,6 @@ def feature_scalling(X_train, X_test, method=StandardScaler(with_mean=True, with
     
     return X_train, X_test
 
-
-# In[13]:
-
-
 def train_predict_ridge(alpha, X_train, y_train, X_test):
     
     """
@@ -54,10 +31,6 @@ def train_predict_ridge(alpha, X_train, y_train, X_test):
     ridge.fit(X_train, y_train)
     y_hat = ridge.predict(X_test)
     return y_hat
-
-
-# In[5]:
-
 
 def tunning_params(X, y, n_split, alphas, to_print=False):
     
@@ -87,10 +60,6 @@ def tunning_params(X, y, n_split, alphas, to_print=False):
         print(best_alpha)
     return best_alpha
 
-
-# In[18]:
-
-
 def running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print=False):
     
     """
@@ -104,9 +73,6 @@ def running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print=False):
     y_test_hat = train_predict_ridge(best_alpha, X_train, y_train, X_test)
     r2 = metrics.r2_score(y_test, y_test_hat)
     return r2, y_test_hat
-
-
-# In[ ]:
 
 
 def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=5, to_print=False):
@@ -130,4 +96,3 @@ def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=
         y_hat[test_idx] = y_p
         fold += 1
     return np.mean(r2s), y_hat
-
