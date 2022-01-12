@@ -7,7 +7,7 @@ setup(
     description='Ridge Regression for SAE',
     author='Rifki Gustiawan',
     license='MIT',
-    install_requires=['random','pandas','matplotlib','scipy', 'sklearn'],
+    install_requires=['pandas','matplotlib','scipy', 'sklearn'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     test_suite='test',
