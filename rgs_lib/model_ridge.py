@@ -100,7 +100,7 @@ def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=
 
         y_hat[test_idx] = y_p
         fold += 1
-    return np.mean(r2s), np.mean(rmselist), y_hat
+    return np.mean(r2s), rmselist, y_hat
 
 def run_test():
     return print("Just run and success")
