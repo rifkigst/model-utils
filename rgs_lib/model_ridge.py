@@ -1,4 +1,3 @@
-import math
 import numpy as np
 import pandas as pd
 import random
@@ -73,8 +72,8 @@ def running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print=False):
     X_train, X_test = feature_scalling(X_train, X_test)
     y_test_hat = train_predict_ridge(best_alpha, X_train, y_train, X_test)
     r2 = metrics.r2_score(y_test, y_test_hat)
-    mse = metrics.metrics.mean_squared_error(y_test, y_test_hat)
-    return r2, math.sqrt(mse), y_test_hat
+    rmse = metrics.mean_squared_error(y_test, y_test_hat)
+    return r2, rmse, y_test_hat
 
 
 def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=5, to_print=False):
