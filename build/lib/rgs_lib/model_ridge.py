@@ -1,3 +1,4 @@
+import math
 import numpy as np
 import pandas as pd
 import random
@@ -72,7 +73,8 @@ def running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print=False):
     X_train, X_test = feature_scalling(X_train, X_test)
     y_test_hat = train_predict_ridge(best_alpha, X_train, y_train, X_test)
     r2 = metrics.r2_score(y_test, y_test_hat)
-    return r2, y_test_hat
+    mse = metrics.metrics.mean_squared_error(y_test, y_test_hat)
+    return r2, math.sqrt(mse), y_test_hat
 
 
 def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=5, to_print=False):
@@ -85,17 +87,21 @@ def fit(X, y, k=5, k_inner=5, random_seed=7, points=10, alpha_low=1, alpha_high=
     np.random.seed(random_seed)
     alphas = np.logspace(alpha_low, alpha_high, points)
     r2s = []
+    rmselist = []
     y_hat = np.zeros_like(y)
     kf = KFold(n_splits=k, shuffle=True)
     fold = 0
     for train_idx, test_idx in kf.split(X):
         if to_print:
             print(f"fold: {fold}", end='\r')
-        r2, y_p = running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print)
+
+        r2,rmse,y_p = running_fold(X, y, train_idx, test_idx, k_inner, alphas, to_print)
         r2s.append(r2)
+        rmselist.append(rmse)
+
         y_hat[test_idx] = y_p
         fold += 1
-    return np.mean(r2s), y_hat
+    return np.mean(r2s), np.mean(rmselist), y_hat
 
 def run_test():
     return print("Just run and success")

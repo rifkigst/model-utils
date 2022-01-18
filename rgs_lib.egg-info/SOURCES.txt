@@ -2,6 +2,7 @@ README.md
 setup.py
 rgs_lib/__init__.py
 rgs_lib/model_ridge.py
+rgs_lib/transfer_learning.py
 rgs_lib.egg-info/PKG-INFO
 rgs_lib.egg-info/SOURCES.txt
 rgs_lib.egg-info/dependency_links.txt
